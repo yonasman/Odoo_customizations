@@ -1,0 +1,41 @@
+<odoo>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <template id="website_test" inherit_id="website.layout">
+    <xpath expr="//main" position="inside">
+        <div class="container">
+            <!-- Form and other content -->
+            <form action="/form/submit" method="POST" enctype="multipart/form-data" class="oe_import">
+                <!-- Manually add CSRF Token -->
+                <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
+                <input type="file" name="picture" accept="image/*,application/pdf,video/*"/>
+                <button type="submit" class="btn btn-primary">Upload</button>
+            </form>
+        </div>
+    </xpath>
+</template>
+</odoo>

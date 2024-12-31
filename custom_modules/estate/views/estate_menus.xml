@@ -1,0 +1,14 @@
+<odoo>
+    <data>
+        <!--estate menus-->
+        <menuitem id="estate_root_menu" name="Real Estate"/>
+        <menuitem id="estate_first_level_menu" name="Real Estates" parent="estate_root_menu"/>
+        <menuitem id="estate_menu_action" action="estate_property_action" parent="estate_first_level_menu" name="Estates"/>
+
+        <!--estate property type menus-->
+        <menuitem id="estate_property_setting" name="Settings" parent="estate_root_menu"/>
+        <menuitem id="estate_property_type" name="Property Types" parent="estate_property_setting" action="estate_property_type_action"/>
+        <menuitem id="estate_property_tag" name="Property Tags" parent="estate_property_setting" action="estate_property_type_action"/>
+
+    </data>
+</odoo>

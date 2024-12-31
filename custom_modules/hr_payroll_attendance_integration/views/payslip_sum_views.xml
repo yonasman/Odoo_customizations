@@ -1,0 +1,29 @@
+<odoo>
+    <data>
+        <!-- Modify the payslip form view -->
+        <record id="your_custom_view_id" model="ir.ui.view">
+            <field name="name">Custom Payslip Worked Days View</field>
+            <field name="model">hr.payslip</field>
+            <field name="inherit_id" ref="om_hr_payroll.view_hr_payslip_form"/>
+            <field name="arch" type="xml">
+                <!-- add number_of_days in the tree view -->
+                <xpath expr="//field[@name='worked_days_line_ids']" position="after">
+                    <group>
+                        <group>
+
+                        </group>
+                        <group >
+                            <field name="num_of_days" string="Total Worked Days" />
+                        </group>
+                    </group>
+                </xpath>
+                <!--remove the sum attribute from number_of_days field-->
+                 <xpath expr="//field[@name='worked_days_line_ids']/tree/field[@name='number_of_days']" position="attributes">-->
+                     <attribute name="sum"/>
+                 </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>
+
+

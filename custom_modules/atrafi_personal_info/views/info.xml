@@ -1,0 +1,108 @@
+<!--<odoo>-->
+<!--<template id="portal_my_details_fields_inherited_main" inherit_id="portal.portal_my_details_fields">-->
+<!--    &lt;!&ndash; Add Gender field &ndash;&gt;-->
+<!--    <xpath expr="//div[@class='clearfix']" position="before">-->
+<!--        <div class="mb-3 col-xl-6">-->
+<!--            <label class="col-form-label">Gender</label>-->
+<!--            <div>-->
+<!--                <div class="form-check">-->
+<!--                    <input type="radio" id="gender_male" name="gender" value="male" t-att-checked="partner.gender == 'male'" class="form-check-input" />-->
+<!--                    <label class="form-check-label" for="gender_male">Male</label>-->
+<!--                </div>-->
+<!--                <div class="form-check">-->
+<!--                    <input type="radio" id="gender_female" name="gender" value="female" t-att-checked="partner.gender == 'female'" class="form-check-input" />-->
+<!--                    <label class="form-check-label" for="gender_female">Female</label>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--        </div>-->
+<!--        <div t-attf-class="mb-3 #{error.get('age') and 'o_has_error' or ''} col-xl-6">-->
+<!--            <label class="col-form-label" for="age">Age</label>-->
+<!--            <input type="text" name="age" t-attf-class="form-control #{error.get('age') and 'is-invalid' or ''}" t-att-value="age or partner.age" />-->
+<!--        </div>-->
+<!--    </xpath>-->
+
+<!--    &lt;!&ndash; Align Secondary Phone next to Phone &ndash;&gt;-->
+<!--    <xpath expr="//div[input/@name='phone']" position="after">-->
+<!--        <div t-attf-class="mb-3 #{error.get('s_phone') and 'o_has_error' or ''} col-xl-6">-->
+<!--            <label class="col-form-label" for="s_phone">Secondary Phone</label>-->
+<!--            <input type="tel" name="s_phone" t-attf-class="form-control #{error.get('s_phone') and 'is-invalid' or ''}" t-att-value="s_phone or partner.s_phone" />-->
+<!--        </div>-->
+<!--    </xpath>-->
+<!--</template>-->
+
+<!--<template id="portal_my_details_fields_inherited_img" inherit_id="portal.portal_my_details_fields">-->
+<!--    <xpath expr="//div[@class='clearfix']" position="after">-->
+<!--        <form action="/my/account" method="POST" enctype="multipart/form-data" class="oe_import">-->
+<!--            &lt;!&ndash; Profile Picture Field &ndash;&gt;-->
+<!--            <div class="mb-3 col-xl-6">-->
+<!--                <label class="col-form-label" for="picture">Profile Picture</label>-->
+<!--                <input type="file" id="picture_input" name="picture" class="form-control"/>-->
+<!--            </div>-->
+<!--            &lt;!&ndash; Customer ID Field &ndash;&gt;-->
+<!--            <div class="mb-3 col-xl-6">-->
+<!--                <label class="col-form-label" for="customer_id">Upload ID</label>-->
+<!--                <input type="file" id="upload_id_input" name="customer_id" class="form-control"/>-->
+<!--            </div>-->
+<!--        </form>-->
+<!--    </xpath>-->
+<!--</template>-->
+
+<!--<template id="portal_my_details_fields_inherited" inherit_id="portal.portal_my_details_fields">-->
+<!--    <xpath expr="//label[@for='company_name']/parent::div" position="replace">-->
+<!--    </xpath>-->
+<!--    <xpath expr="//label[@for='vat']/parent::div" position="replace">-->
+<!--    </xpath>-->
+
+<!--	<xpath expr="//small[contains(text(), 'Company name, VAT Number and country can not be changed once document(s) have been issued for your account.')]"-->
+<!--		   position="replace">-->
+<!--	</xpath>-->
+<!--    <xpath expr="//input[@name='zipcode']/ancestor::div[1]" position="replace">-->
+<!--    </xpath>-->
+<!--    <xpath expr="//select[@name='country_id']/ancestor::div[1]" position="replace">-->
+<!--    </xpath>-->
+<!--    <xpath expr="//label[@for='phone']/following-sibling::input[@name='phone']" position="attributes">-->
+<!--        <attribute name="readonly">readonly</attribute>-->
+<!--    </xpath>-->
+<!--</template>-->
+<!--</odoo>-->
+<odoo>
+    <template id="portal_my_account_inherited" inherit_id="portal.portal_my_details">
+        <xpath expr="//form" position="attributes">
+            <!-- Modify the form attributes -->
+            <attribute name="enctype">multipart/form-data</attribute>
+        </xpath>
+    </template>
+
+
+    <template id="portal_my_details_fields_inherited_img" inherit_id="portal.portal_my_details_fields">
+        <xpath expr="//div[@class='clearfix']" position="after">
+                <div class="mb-3 col-xl-6">
+                    <label class="col-form-label" for="picture">Profile Picture</label>
+                    <input type="file" id="picture_input" name="picture" class="form-control"/>
+                </div>
+                <!-- Customer ID Field -->
+                <div class="mb-3 col-xl-6">
+                    <label class="col-form-label" for="customer_id">Upload ID</label>
+                    <input type="file" id="upload_id_input" name="customer_id" class="form-control"/>
+                </div>
+        </xpath>
+    </template>
+
+    <template id="portal_my_details_fields_inherited" inherit_id="portal.portal_my_details_fields">
+        <xpath expr="//label[@for='company_name']/parent::div" position="replace">
+        </xpath>
+        <xpath expr="//label[@for='vat']/parent::div" position="replace">
+        </xpath>
+
+        <xpath expr="//small[contains(text(), 'Company name, VAT Number and country can not be changed once document(s) have been issued for your account.')]"
+            position="replace">
+        </xpath>
+        <xpath expr="//input[@name='zipcode']/ancestor::div[1]" position="replace">
+        </xpath>
+        <xpath expr="//select[@name='country_id']/ancestor::div[1]" position="replace">
+        </xpath>
+        <xpath expr="//label[@for='phone']/following-sibling::input[@name='phone']" position="attributes">
+            <attribute name="readonly">readonly</attribute>
+        </xpath>
+    </template>
+</odoo>
