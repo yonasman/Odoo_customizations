@@ -54,6 +54,7 @@ class HrPayslip(models.Model):
     def get_worked_day_lines(self, contracts, date_from, date_to):
         res = []
         global_leaves = {}  # This will store the accumulated public holidays
+        leaves = {} # This will store leave types other than holidays
 
         # Process each contract with a working schedule
         for contract in contracts.filtered(lambda contract: contract.resource_calendar_id):
@@ -81,8 +82,6 @@ class HrPayslip(models.Model):
                 'contract_id': contract.id,
             }
 
-            # Initialize a dictionary to store leave types
-            leaves = {}
 
             # Fetch leave data (approved leaves)
             day_leave_intervals = self.env['hr.leave'].search([
@@ -121,7 +120,7 @@ class HrPayslip(models.Model):
                     leave_struct['number_of_hours'] += leave_duration_hours
                     leave_struct['number_of_days'] += leave_duration_days
 
-            # Fetch mandatory days within the date range
+            # Fetch mandatory days
             mandatory_days = self.env['hr.leave.mandatory.day'].search([
                 ('start_date', '<=', date_to_dt),
                 ('end_date', '>=', date_from_dt),
@@ -153,12 +152,11 @@ class HrPayslip(models.Model):
                     'time_type': 'mandatory_day'
                 })
 
-            # Fetch public holidays within the given date range
+            # Fetch public holidays
             public_holidays = self.env['resource.calendar.leaves'].search([
-                ('date_from', '<=', date_to_dt),  # Holidays starting before or on date_to
-                ('date_to', '>=', date_from_dt),  # Holidays ending after or on date_from
-                ('resource_id', '=', False),  # Public holidays (not tied to any specific resource)
-                ('time_type', '=', 'leave'),  # Ensure it's marked as leave
+                ('date_from', '<=', date_to_dt),
+                ('resource_id', '=', False),
+                ('time_type', '=', 'leave'),
                 ('calendar_id', '=', False)  # Public holidays usually have no specific calendar
             ])
 
@@ -214,7 +212,6 @@ class HrPayslip(models.Model):
             worked_day_lines = self.get_worked_day_lines(
                 contracts, payslip.date_from, payslip.date_to
             )
-            print(worked_day_lines)
 
             # Initialize a list to track lines to be updated or appended
             worked_day_line_vals = []
@@ -243,7 +240,6 @@ class HrPayslip(models.Model):
                 for line in worked_day_lines:
                     if 'time_type' in line:
                         if line['time_type'] == 'leave':
-                            # if line['time_type'] == 'leave':
                             total_worked_days -= line['number_of_days']
                         else:
                             continue
