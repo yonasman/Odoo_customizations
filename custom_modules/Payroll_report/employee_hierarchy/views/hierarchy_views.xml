@@ -1,0 +1,397 @@
+<odoo>
+  <data>
+      <record id="view_country_state_form_inherit" model="ir.ui.view">
+        <field name="name">res.country.state.inherit</field>
+        <field name="model">res.country.state</field>
+        <field name="inherit_id" ref="base.view_country_state_form" />
+        <field name="arch" type="xml">
+            <xpath expr="//sheet" position="inside">
+              <notebook>
+                <page name='cities' string="Cities">
+                  <field name="city_ids"/>
+                </page>
+              </notebook>
+            </xpath>
+        </field>
+    </record>
+
+
+<!--    <record id="view_hr_contract_type_form_inherited" model="ir.ui.view">-->
+<!--        <field name="name">hr.contract.type.form.inherit</field>-->
+<!--        <field name="model">hr.contract.type</field>-->
+<!--        <field name="inherit_id" ref="om_hr_payroll.view_hr_contract_type_form"/>-->
+<!--        <field name="arch" type="xml">-->
+<!--            <xpath expr="//field[@name='name']" position="after">-->
+<!--                <field colspan="4" name="probation_period"/>-->
+<!--                <field colspan="4" name="reminder_cron_job"/>-->
+<!--                <field colspan="4" name="renewal_months"/>-->
+<!--            </xpath>-->
+<!--        </field>-->
+<!--    </record>-->
+
+<!--    <record id="hr_contract_form_inherited" model="ir.ui.view">-->
+<!--        <field name="name">hr.contract.view.form.inherit</field>-->
+<!--        <field name="model">hr.contract</field>-->
+<!--        <field name="inherit_id" ref="hr_contract.hr_contract_view_form"/>-->
+<!--        <field name="arch" type="xml">-->
+<!--            <xpath expr="//header" position="inside">-->
+
+<!--                <field name="contract_state" invisible='1'/>-->
+<!--                <button name="submission_for_update_contract"  attrs="{'invisible':&quot;['|',('contract_state','=','renewable'),('operation_manager_id','!=', uid)]&quot;}"  type='object' class="btn-primary" string='Submit to Manager'/>-->
+<!--                <button name="update_contract" type='object' groups='hr_contract.group_hr_contract_manager' attrs="{'invisible':&quot;['|',('contract_state', 'not in', ['hold','renewable']),('hr_responsible_id','!=',uid)]&quot;}"  class="btn-primary" string='Update Contract'/>-->
+
+<!--            </xpath>-->
+<!--            <xpath expr="//widget[@name='web_ribbon']" position="after">-->
+<!--                &lt;!&ndash; <widget name="web_ribbon" title="Running" attrs="{'invisible': [('state', '!=', 'open'),()]}"/> &ndash;&gt;-->
+<!--                <widget name="web_ribbon" title="Renewable" attrs="{'invisible': [('contract_state', '!=', 'renewable')]}"/>-->
+<!--                <widget name="web_ribbon" title="Hold" attrs="{'invisible': [('contract_state', '!=', 'hold')]}"/>-->
+<!--                &lt;!&ndash; <widget name="web_ribbon" title="Closed" bg_color="bg-danger" attrs="{'invisible': ['|',('state', '!=', 'close'),('contract_state', 'not in', ['renewable','hold'])]}"/> &ndash;&gt;-->
+<!--                &lt;!&ndash; <widget name="web_ribbon" title="Cancelled" bg_color="bg-danger" attrs="{'invisible': [('state', '!=', 'cancel')]}"/> &ndash;&gt;-->
+
+<!--            </xpath>-->
+
+
+<!--            <xpath expr="//field[@name='job_id']" position="after">-->
+<!--                <field name="contract_expired_after" invisible='1'/>-->
+<!--                <field name="contract_expired_reminder_date" invisible='1'/>-->
+<!--                <field name="operation_manager_id" invisible='1'/>-->
+<!--            </xpath>-->
+<!--            <xpath expr="//field[@name='date_end']" position="attributes">-->
+<!--                <attribute name='readonly'>1</attribute>-->
+<!--                <attribute name='force_save'>1</attribute>-->
+
+<!--            </xpath>-->
+<!--            <xpath expr="//field[@name='contract_type_id']" position="attributes">-->
+<!--                <attribute name='invisible'>1</attribute>-->
+<!--            </xpath>-->
+
+<!--        </field>-->
+<!--    </record>-->
+
+    <record id="view_employee_form_inherited" model="ir.ui.view">
+        <field name="name">hr.employee.form.inherit.department</field>
+        <field name="model">hr.employee</field>
+        <field name="inherit_id" ref="hr.view_employee_form" />
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='department_id']" position="after">
+                <field name="department_ids" widget="many2many_tags" invisible='1'/>
+
+            </xpath>
+
+            <xpath expr="//field[@name='work_email']" position="after">
+                <field name="zone_id"/>
+                <field name="branch_id" domain="[('zone_id','=',zone_id)]" />
+            </xpath>
+
+        </field>
+    </record>
+
+    <record model="ir.ui.view" id="business_areas_list">
+    <field name="name">res.country.state.city.list</field>
+    <field name="model">res.country.state.city</field>
+    <field name="arch" type="xml">
+        <tree>
+          <field name="name"/>
+          <field name="code" />
+        </tree>
+    </field>
+    </record>
+
+    <record model="ir.ui.view" id="business_areas_form">
+    <field name="name">res.country.state.city.form</field>
+    <field name="model">res.country.state.city</field>
+    <field name="arch" type="xml">
+        <form>
+            <sheet>
+                <group>
+                    <group>
+                        <field name="name"/>
+                        <field name="code" />
+                    </group>
+                    <group>
+                        <field name="country_id"/>
+                        <field name="state_id" domain="[('country_id','=',country_id)]"/>
+                        <field name="zone_id"/>
+                    </group>
+                </group>
+                <notebook >
+                    <page string='Branchs'>
+                        <field name="branch_ids">
+                            <tree editable='bottom'>
+                                <field name="name"/>
+                                <field name="code" />
+                            </tree>
+                        </field>
+                    </page>
+                </notebook>
+            </sheet>
+        </form>
+    </field>
+    </record>
+
+    <record id="zone_linked_employee_list" model="ir.actions.act_window">
+      <field name="name">Employees</field>
+      <field name="res_model">hr.employee</field>
+      <field name="view_mode">tree,form,kanban</field>
+      <field name="context">{'create':False,'edit':False}</field>
+      <field name="domain">[('zone_id','=',context.get('active_id', False))]</field>
+    </record>
+
+    <record model="ir.ui.view" id="business_zone_list">
+    <field name="name">business.zone.list</field>
+    <field name="model">business.zone</field>
+    <field name="arch" type="xml">
+        <tree>
+          <field name="name"/>
+          <field name="code" />
+          <field name="country_id"/>
+        </tree>
+    </field>
+    </record>
+
+    <record model="ir.ui.view" id="business_zone_form">
+    <field name="name">business.zone.form</field>
+    <field name="model">business.zone</field>
+    <field name="arch" type="xml">
+        <form>
+            <sheet>
+                <div name="button_box"  class='oe_button_box' position="inside">
+                    <button class="oe_stat_button" type="action" name="%(zone_linked_employee_list)d" icon="fa-users">
+                      <field string="Employees" name="employee_count" widget="statinfo"/>
+                    </button>
+                </div>
+                <group>
+                    <group>
+                        <field name="name"/>
+                        <field name="code" />
+                    </group>
+                    <group>
+                        <field name="country_id"/>
+                        <field name="manager_id"/>
+                        <field name="operation_manager_id"/>
+                    </group>
+                </group>
+                    <notebook>
+                        <page string="Cities">
+                            <field name="city_ids" options="{'edit': false}">
+                                <tree editable='bottom'>
+                                    <field name="name"/>
+                                    <field name="code" />
+                                </tree>
+                            </field>
+                        </page>
+                </notebook>
+            </sheet>
+        </form>
+    </field>
+    </record>
+
+    <record id="linked_employee_list" model="ir.actions.act_window">
+      <field name="name">Employees</field>
+      <field name="res_model">hr.employee</field>
+      <field name="view_mode">tree,form,kanban</field>
+      <field name="context">{'create':False,'edit':False}</field>
+      <field name="domain">[('branch_id','=',context.get('active_id', False))]</field>
+    </record>
+
+    <record model="ir.ui.view" id="branch_branch_list">
+      <field name="name">res.branch.list</field>
+      <field name="model">res.branch</field>
+      <field name="arch" type="xml">
+        <tree>
+            <field name="name"/>
+            <field name="code" />
+            <field name="city"/>
+            <field name="state_id"/>
+        </tree>
+      </field>
+    </record>
+
+    <record id="view_company_form_branch" model="ir.ui.view">
+        <field name="name">res.company.branch.inherit</field>
+        <field name="model">res.company</field>
+        <field name="inherit_id" ref="base.view_company_form" />
+        <field name="arch" type="xml">
+            <xpath expr="//sheet/notebook" position="inside">
+                <page name='branches' string="Branch Offices">
+                  <field name="branch_ids"/>
+                </page>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="view_warehouse_branch" model="ir.ui.view">
+        <field name="name">stock.warehouse.branch.inherit</field>
+        <field name="model">stock.warehouse</field>
+        <field name="inherit_id" ref="stock.view_warehouse" />
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='partner_id']" position="after">
+                  <field name="res_branch_id"/>
+                  <field name="zone_id"/>
+            </xpath>
+        </field>
+    </record>
+
+
+
+<!--    <record model="ir.ui.view" id="branch_branch_form">-->
+<!--      <field name="name">branch.branch.form</field>-->
+<!--      <field name="model">res.branch</field>-->
+<!--      <field name="arch" type="xml">-->
+<!--        <form>-->
+<!--            <sheet>-->
+<!--                <div name="button_box"  class='oe_button_box' position="inside">-->
+<!--                    <button class="oe_stat_button" type="action" name="%(linked_employee_list)d" icon="fa-users">-->
+<!--                      <field string="Employees" name="employee_count" widget="statinfo"/>-->
+<!--                    </button>-->
+<!--                </div>-->
+<!--                <div class="oe_title mb24">-->
+<!--                    <h1>-->
+<!--                       <field name="branch_type" widget="radio" options="{'horizontal': true}"/><br/>-->
+<!--                       <field name="name" string="Branch Name"/>-->
+<!--                    </h1>-->
+<!--                    <div class="o_row">-->
+<!--                      <field name="parent_id" placeholder="Parent Branch ..."  attrs="{'invisible': [('branch_type','=', 'main')]}"/>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--                <group>-->
+<!--                    <group>-->
+<!--                        <field name="code" string="Branch Code"/>-->
+<!--                        <span class="o_form_label o_td_label" name="address_name">-->
+<!--                            <b>Address</b>-->
+<!--                        </span>-->
+<!--                        <div class="o_address_format" string="Address">-->
+<!--                            <field name="street" placeholder="Street..." class="o_address_street"/>-->
+<!--                            <field name="street2" placeholder="Street 2..." class="o_address_street"/>-->
+<!--                            <field name="city" placeholder="City" class="o_address_city"/>-->
+<!--                            <field name="state_id" class="o_address_state" placeholder="State" context="{'country_id': country_id, 'default_country_id': country_id, 'zip_code': zip_code}"/>-->
+<!--                            <field name="zip_code" placeholder="ZIP" class="o_address_zip"/>-->
+<!--                            <field name="country_id" placeholder="Country" class="o_address_country"/>-->
+<!--                        </div>-->
+<!--                        <field name="branch_type_sel"/>-->
+<!--                        <field name="manager_id"/>-->
+<!--                        <field name="operation_manager_id"/>-->
+<!--                    </group>-->
+<!--                    <group>-->
+<!--                        <field name="mobile_no" />-->
+<!--                        <field name="phone"/>-->
+<!--                        <field name="country_id"/>-->
+<!--                        <field name="state_id" domain="[('country_id','=',country_id)]"/>-->
+<!--                        <field name="zone_id" domain="[('country_id','=',country_id)]"/>-->
+<!--                       <field name="city" domain="[('zone_id','=',zone_id)]"/>-->
+<!--                       <field name="company_id" />-->
+
+<!--                    </group>-->
+<!--                </group>-->
+
+<!--            </sheet>-->
+
+<!--        </form>-->
+<!--      </field>-->
+<!--    </record>-->
+
+
+
+
+   <record model="ir.ui.view" id="branch_branch_form">
+    <field name="name">branch.branch.form</field>
+    <field name="model">res.branch</field>
+    <field name="arch" type="xml">
+        <form>
+            <sheet>
+                <div name="button_box" class="oe_button_box" position="inside">
+                    <button class="oe_stat_button" type="action" name="%(linked_employee_list)d" icon="fa-users">
+                        <field string="Employees" name="employee_count" widget="statinfo"/>
+                    </button>
+                </div>
+                <div class="oe_title mb24">
+                    <h1>
+                        <field name="branch_type" widget="radio" options="{'horizontal': true}"/><br/>
+                        <field name="name" string="Branch Name"/>
+                    </h1>
+                    <div class="o_row">
+                        <!-- Replaced attrs with the 'groups' or conditional visibility -->
+                        <field name="parent_id" placeholder="Parent Branch ..."
+                               groups="{'branch_type': 'main'}"
+                               invisible="['|', ('branch_type', '=', 'main'), ('branch_type', '=', 'sub')]"/>
+                    </div>
+                </div>
+                <group>
+                    <group>
+                        <field name="code" string="Branch Code"/>
+                        <span class="o_form_label o_td_label" name="address_name">
+                            <b>Address</b>
+                        </span>
+                        <div class="o_address_format" string="Address">
+                            <field name="street" placeholder="Street..." class="o_address_street"/>
+                            <field name="street2" placeholder="Street 2..." class="o_address_street"/>
+                            <field name="city" placeholder="City" class="o_address_city"/>
+                            <field name="state_id" class="o_address_state" placeholder="State" context="{'country_id': country_id, 'default_country_id': country_id, 'zip_code': zip_code}"/>
+                            <field name="zip_code" placeholder="ZIP" class="o_address_zip"/>
+                            <field name="country_id" placeholder="Country" class="o_address_country"/>
+                        </div>
+                        <field name="branch_type_sel"/>
+                        <field name="manager_id"/>
+                        <field name="operation_manager_id"/>
+                    </group>
+                    <group>
+                        <field name="mobile_no"/>
+                        <field name="phone"/>
+                        <field name="country_id"/>
+                        <field name="state_id" domain="[('country_id','=',country_id)]"/>
+                        <field name="zone_id" domain="[('country_id','=',country_id)]"/>
+                        <field name="city" domain="[('zone_id','=',zone_id)]"/>
+                        <field name="company_id"/>
+                    </group>
+                </group>
+            </sheet>
+        </form>
+    </field>
+</record>
+
+
+
+
+
+
+
+
+    <!-- explicit calendar view definition -->
+
+
+
+
+
+    <!-- actions opening views on models -->
+
+
+    <record model="ir.actions.act_window" id="action_res_branch_form">
+      <field name="name">Branchs</field>
+      <field name="type">ir.actions.act_window</field>
+      <field name="res_model">res.branch</field>
+      <field name="view_mode">tree,form</field>
+    </record>
+
+
+    <record model="ir.actions.act_window" id="action_business_cities_form">
+      <field name="name">Cities</field>
+      <field name="type">ir.actions.act_window</field>
+      <field name="res_model">res.country.state.city</field>
+      <field name="view_mode">tree,form</field>
+    </record>
+
+    <record model="ir.actions.act_window" id="action_business_zone_form">
+      <field name="name">Zones</field>
+      <field name="type">ir.actions.act_window</field>
+      <field name="res_model">business.zone</field>
+      <field name="view_mode">tree,form</field>
+    </record>
+
+
+    <menuitem action="action_business_zone_form" id="action_business_zone_form_menu" parent="hr.menu_human_resources_configuration"/>
+    <menuitem action="action_business_cities_form" id="action_business_cities_form_menu" parent="contacts.menu_localisation"/>
+    <menuitem action="action_res_branch_form" id="menu_action_res_branch_form" parent="hr.menu_human_resources_configuration"/>
+
+
+  </data>
+</odoo>

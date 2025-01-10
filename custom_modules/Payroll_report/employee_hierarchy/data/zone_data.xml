@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+   <data noupdate='1'>
+   
+      <record model="business.zone" id="zone_nwr">
+         <field name="code">NWR</field>
+         <field name="name">NWR</field>
+      </record>
+
+      <record model="business.zone" id="zone_ner">
+         <field name="code">NER</field>
+         <field name="name">NER</field>
+
+      </record><record model="business.zone" id="zone_nnwr">
+         <field name="code">NNWR</field>
+         <field name="name">NNWR</field>
+      </record>
+         
+      <record model="business.zone" id="zone_cnr">
+         <field name="code">CNR</field>
+         <field name="name">CNR</field>
+      </record>
+         
+      <record model="business.zone" id="zone_ser">
+         <field name="code">SER</field>
+         <field name="name">SER</field>
+      </record>
+         
+      <record model="business.zone" id="zone_cwr">
+         <field name="code">CWR</field>
+         <field name="name">CWR</field>
+      </record>
+         
+      <record model="business.zone" id="zone_sr">
+         <field name="code">SR</field>
+         <field name="name">SR</field>
+      </record>
+         
+      <record model="business.zone" id="zone_sswr">
+         <field name="code">SSWR</field>
+         <field name="name">SSWR</field>
+      </record>
+         
+      <record model="business.zone" id="zone_nr">
+         <field name="code">NR</field>
+         <field name="name">NR</field>
+      </record>
+         
+      <record model="business.zone" id="zone_swwr">
+         <field name="code">SWWR</field>
+         <field name="name">SWWR</field>
+      </record>
+         
+      <record model="business.zone" id="zone_er">
+         <field name="code">ER</field>
+         <field name="name">ER</field>
+      </record>
+         
+      <record model="business.zone" id="zone_eaaz">
+         <field name="code">EAAZ</field>
+         <field name="name">EAAZ</field>
+      </record>
+               
+      <record model="business.zone" id="zone_naaz">
+         <field name="code">NAAZ</field>
+         <field name="name">NAAZ</field>
+      </record>
+               
+      <record model="business.zone" id="zone_caaz">
+         <field name="code">CAAZ</field>
+         <field name="name">CAAZ</field>
+      </record>
+         
+      <record model="business.zone" id="zone_saaz">
+         <field name="code">SAAZ</field>
+         <field name="name">SAAZ</field>
+      </record>
+         
+      <record model="business.zone" id="zone_swaaz">
+         <field name="code">SWAAZ</field>
+         <field name="name">SWAAZ</field>
+      </record>
+      
+     <record model="business.zone" id="zone_waaz">
+         <field name="code">WAAZ</field>
+         <field name="name">WAAZ</field>
+      </record>
+       
+   </data>
+</odoo>

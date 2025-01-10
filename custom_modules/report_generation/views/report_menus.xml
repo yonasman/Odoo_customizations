@@ -1,0 +1,40 @@
+<odoo>
+    <data>
+        <!-- Root menu -->
+        <menuitem id="menu_custom_report_root" name="Custom Reports" sequence="1"/>
+
+        <!-- Submenu for PDF Report -->
+        <menuitem id="menu_pdf_report"
+                  parent="menu_custom_report_root"
+                  name="PDF Report"
+                  action="action_pdf_report"
+                 />
+
+        <!-- Submenu for Excel Report -->
+        <menuitem id="menu_excel_report"
+                  parent="menu_custom_report_root"
+                  name="Excel Report"
+                  action="action_excel_report"
+                  />
+
+        <!-- Action for PDF Report -->
+        <record id="action_pdf_report" model="ir.actions.act_window">
+            <field name="name">Custom Report</field>
+            <field name="res_model">pdf.report</field>
+            <field name="view_mode">tree,form</field>
+            <field name="help" type="html">
+                <p class="o_view_nocontent_smiling_face">
+                    Create your first custom report
+                </p>
+            </field>
+        </record>
+
+        <!-- Action for Excel Report -->
+        <record id="action_excel_report" model="ir.actions.act_window">
+            <field name="name">Excel Report</field>
+            <field name="res_model">excel.report</field>
+            <field name="view_mode">form,tree</field>
+            <field name="target">new</field>
+        </record>
+    </data>
+</odoo>

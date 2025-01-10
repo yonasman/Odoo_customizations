@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+   <data noupdate='1'>
+      <record model="flat.bed.type" id="studio">
+         <field name="code">ST</field>
+         <field name="name">Studio</field>
+         <field name="desc">Studio</field>
+      </record>
+
+      <record model="flat.bed.type" id="1bhk">
+         <field name="code">1BHK</field>
+         <field name="name">1BHK</field>
+         <field name="desc">1BHK</field>
+      </record>
+
+      <record model="flat.bed.type" id="1bk">
+         <field name="code">1BK</field>
+         <field name="name">BK</field>
+         <field name="desc">1 Room + Kitchen</field>
+      </record>
+         
+      <record model="flat.bed.type" id="2bhk">
+         <field name="code">2BHK</field>
+         <field name="name">2BHK</field>
+         <field name="desc">2BHK</field>
+      </record>
+         
+      <record model="flat.bed.type" id="2+1bhk">
+         <field name="code">2+1BHK</field>
+         <field name="name">2+1BHK</field>
+         <field name="desc">2+1BHK</field>
+      </record>
+         
+      <record model="flat.bed.type" id="3BHK">
+         <field name="code">3BHK</field>
+         <field name="name">3BHK</field>
+         <field name="desc">3BHK</field>
+      </record>
+         
+      <record model="flat.bed.type" id="4BHK">
+         <field name="code">4BHK</field>
+         <field name="name">4BHK</field>
+         <field name="desc">4BHK</field>
+      </record>
+         
+      <record model="flat.bed.type" id="4BHK">
+         <field name="code">4BHK</field>
+         <field name="name">4BHK</field>
+         <field name="desc">4BHK</field>
+      </record>
+
+   </data>
+</odoo>

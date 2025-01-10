@@ -1,0 +1,24 @@
+<odoo>
+    <record id="view_my_report_wizard_form" model="ir.ui.view">
+        <field name="name">my.report.wizard.form</field>
+        <field name="model">excel.report</field>
+        <field name="arch" type="xml">
+            <form string="Excel Report">
+                <group>
+                    <group>
+                        <field name="first_name" strng="First Name"/>
+                        <field name="age" string="Age"/>
+                    </group>
+                    <group>
+                        <field name="last_name" string="Last Name"/>
+                        <field name="department" string="Department"/>
+                    </group>
+                </group>
+                <footer>
+                    <button name="report_excel" type="object" string="Generate Report" class="btn-primary"/>
+                    <button string="Cancel" class="btn-secondary" special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+</odoo>

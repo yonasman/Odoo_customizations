@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+   <data noupdate='1'>
+      <record model="flat.type" id="a">
+         <field name="code">A</field>
+         <field name="name">A</field>
+         <field name="desc">Fully Furnished Bed room + Kitchen + Centralized AC </field>
+      </record>
+
+      <record model="flat.type" id="b">
+         <field name="code">B</field>
+         <field name="name">B</field>
+         <field name="desc">Studio semi Furnished + AC and Modular Kitchen </field>
+      </record>
+
+      <record model="flat.type" id="c">
+         <field name="code">C</field>
+         <field name="name">C</field>
+         <field name="desc"></field>
+      </record>
+         
+      <record model="flat.type" id="d">
+         <field name="code">D</field>
+         <field name="name">D</field>
+         <field name="desc"></field>
+      </record>
+
+   </data>
+</odoo>

@@ -1,3 +1,0 @@
-{
-    "name":"custom report generation"
-}

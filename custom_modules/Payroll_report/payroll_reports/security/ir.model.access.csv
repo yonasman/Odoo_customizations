@@ -1,0 +1,6 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_payroll_report_wizard,payroll.report.wizard,model_payroll_summary_report_wizard,base.group_user,1,1,1,1
+access_merchant_report_wizard,merchant.report.wizard,model_merchant_report_wizard,base.group_user,1,1,1,1
+access_income_tax_report_wizard,income.tax.report.wizard,model_income_tax_summary_report_wizard,base.group_user,1,1,1,1
+access_pension_tax_report_wizard,pension.tax.report.wizard,model_pension_tax_summary_report_wizard,base.group_user,1,1,1,1
+access_cost_sharing_tax_report_wizard,cost.sharing.tax.report.wizard,model_cost_sharing_summary_report_wizard,base.group_user,1,1,1,1

@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="view_cost_sharing_summary_report_wizard_form" model="ir.ui.view">
+        <field name="name">cost.sharing.summary.report.wizard.form</field>
+        <field name="model">cost.sharing.summary.report.wizard</field>
+        <field name="arch" type="xml">
+            <form string="Cost Sharing Summary Report">
+                <group>
+                    <group>
+                        <field name="date_from" required="1"/>
+                        <field name="date_to" required="1"/>
+                    </group>
+                    <group>
+                        <field name="employee_zones" widget="many2many_tags"/>
+                    </group>
+
+                </group>
+                <footer>
+                    <button string="Generate Report" name="generate_cost_sharing_report" type="object"
+                            class="btn-primary"/>
+                    <button string="Cancel" special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_cost_sharing_summary_report_wizard" model="ir.actions.act_window">
+        <field name="name">Cost Sharing Report</field>
+        <field name="res_model">cost.sharing.summary.report.wizard</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+    </record>
+
+    <menuitem id="menu_cost_sharing_summary_report_wizard"
+              name="Cost Sharing Report"
+              action="action_cost_sharing_summary_report_wizard"
+              parent="payroll_reports.payroll_report_menu"
+              sequence="5"/>
+
+</odoo>

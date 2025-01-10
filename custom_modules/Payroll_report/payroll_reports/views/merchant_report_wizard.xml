@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="view_merchant_report_wizard_form" model="ir.ui.view">
+        <field name="name">Merchant Report</field>
+        <field name="model">merchant.report.wizard</field>
+        <field name="arch" type="xml">
+            <form string="Merchant Report">
+                <group>
+                    <group>
+                        <field name="date_from"/>
+                        <field name="date_to"/>
+                    </group>
+
+                    <group>
+                        <field name="employee_zones" widget="many2many_tags"/>
+                    </group>
+                </group>
+                <footer>
+                    <button string="Generate Report" name="generate_merchant_report" type="object" class="btn-primary"/>
+                    <button string="Cancel" special="cancel"/>
+                </footer>
+
+
+            </form>
+
+        </field>
+    </record>
+
+    <record id="action_merchant_summary_report_wizard" model="ir.actions.act_window">
+        <field name="name">Merchant Report</field>
+        <field name="res_model">merchant.report.wizard</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+    </record>
+
+
+    <menuitem id="menu_merchant_summary_report_wizard"
+              name="Merchant Report"
+              parent="payroll_reports.payroll_report_menu"
+              action="action_merchant_summary_report_wizard"
+              sequence="2"
+    />
+</odoo>

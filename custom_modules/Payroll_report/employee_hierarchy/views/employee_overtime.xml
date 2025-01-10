@@ -1,0 +1,89 @@
+<odoo>
+  <data>
+
+    <record model="ir.ui.view" id="employee_overtime_list">
+    <field name="name">hr.employee.overtime.list</field>
+    <field name="model">hr.employee.overtime</field>
+    <field name="arch" type="xml">
+        <tree editable="bottom">
+            <field name="employee_id"/> 
+            <field name="date"/>
+            <field name="overtime_duration"/> 
+            <field name="overtime_amount"/> 
+            <field name="days_selection"/> 
+            <field name="name"/>           
+        </tree>
+      </field>
+    </record>
+
+    <record model="ir.actions.act_window" id="action_hr_employee_overtime">
+      <field name="name">Employee's Overtime Details</field>
+      <field name="type">ir.actions.act_window</field>
+      <field name="res_model">hr.employee.overtime</field>
+      <field name="view_mode">tree</field>
+    </record>
+
+
+  <record model="ir.ui.view" id="employee_bonus_list">
+    <field name="name">hr.employee.bonus.list</field>
+    <field name="model">hr.employee.bonus</field>
+    <field name="arch" type="xml">
+        <tree editable="bottom">
+            <field name="employee_id"/> 
+            <field name="date"/>
+            <field name="bouns_amount"/> 
+            <field name="name"/>           
+        </tree>
+      </field>
+    </record>
+
+    <record model="ir.actions.act_window" id="action_hr_employee_bonus">
+      <field name="name">Employee's Bouns Details</field>
+      <field name="type">ir.actions.act_window</field>
+      <field name="res_model">hr.employee.bonus</field>
+      <field name="view_mode">tree</field>
+    </record>
+
+    <record model="ir.ui.view" id="employee_commission_list">
+    <field name="name">hr.employee.commission.list</field>
+    <field name="model">hr.employee.commission</field>
+    <field name="arch" type="xml">
+        <tree editable="bottom">
+            <field name="employee_id"/> 
+            <field name="date"/>
+            <field name="commission_amount"/> 
+            <field name="name"/>           
+        </tree>
+      </field>
+    </record>
+
+    <record model="ir.actions.act_window" id="action_hr_employee_commission">
+      <field name="name">Employee's Commission Details</field>
+      <field name="type">ir.actions.act_window</field>
+      <field name="res_model">hr.employee.commission</field>
+      <field name="view_mode">tree</field>
+    </record>
+
+    <menuitem action="action_hr_employee_overtime" id="menu_action_hr_employee_overtime" parent="hr.menu_hr_employee_payroll"/>
+    <menuitem action="action_hr_employee_bonus" id="menu_action_hr_employee_bonus" parent="hr.menu_hr_employee_payroll"/>
+    <menuitem action="action_hr_employee_commission" id="menu_action_hr_employee_commission" parent="hr.menu_hr_employee_payroll"/>
+    
+
+    
+
+    <record id="view_employee_form_inherited_cost" model="ir.ui.view">
+        <field name="name">hr.employee.form.inherit</field>
+        <field name="model">hr.employee</field>
+        <field name="inherit_id" ref="hr.view_employee_form" />
+        <field name="arch" type="xml">
+            
+
+            <xpath expr="//field[@name='work_email']" position="after">
+                <field name="cost_sharing"/>
+            </xpath>
+            
+        </field>
+    </record>
+
+  </data>
+</odoo>
