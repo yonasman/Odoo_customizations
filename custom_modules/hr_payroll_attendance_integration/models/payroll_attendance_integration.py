@@ -44,10 +44,7 @@ class HrPayslip(models.Model):
         ])
 
         # Sum the worked_hours fetched from the attendance
-        total_hours = sum(
-            round(attendance.worked_hours, 2)
-            for attendance in attendances if attendance.worked_hours
-        )
+        total_hours = sum(round(attendance.worked_hours,1) for attendance in attendances if attendance.worked_hours)
 
         return total_hours
 
@@ -106,6 +103,10 @@ class HrPayslip(models.Model):
                 if leave_date_to_dt >= date_from_dt and leave_date_from_dt <= date_to_dt:
                     # Ensure each leave type is handled separately
                     holiday_status = leave.holiday_status_id
+
+                    # differentiate paid and unpaid leaves
+                    leave_type = 'unpaid_leave' if holiday_status.time_type == 'leave' else 'paid_leave'
+
                     leave_struct = leaves.setdefault(holiday_status, {
                         'name': holiday_status.name or _('Global Leaves'),
                         'sequence': 5,
@@ -113,44 +114,12 @@ class HrPayslip(models.Model):
                         'number_of_days': 0.0,
                         'number_of_hours': 0.0,
                         'contract_id': contract.id,
-                        'time_type': holiday_status.time_type
+                        'time_type': leave_type
                     })
 
                     # Add the leave duration to the leave structure
                     leave_struct['number_of_hours'] += leave_duration_hours
                     leave_struct['number_of_days'] += leave_duration_days
-
-            # # Fetch mandatory days
-            # mandatory_days = self.env['hr.leave.mandatory.day'].search([
-            #     ('start_date', '<=', date_to_dt),
-            #     ('end_date', '>=', date_from_dt),
-            # ])
-            #
-            # # Initialize variables to accumulate mandatory days total
-            # total_mandatory_days = 0
-            # total_mandatory_hours = 0
-            #
-            # for mandatory_day in mandatory_days:
-            #     mandatory_start_date = mandatory_day['start_date']
-            #     mandatory_end_date = mandatory_day['end_date']
-            #
-            #     # Calculate the number of days for each mandatory day
-            #     mandatory_day_calc = (mandatory_end_date - mandatory_start_date).days
-            #
-            #     total_mandatory_days += mandatory_day_calc
-            #     total_mandatory_hours += mandatory_day_calc * 8  # Assuming 8 hours per mandatory day
-            #
-            # # Create a single entry for all mandatory days
-            # if total_mandatory_days > 0:
-            #     mandatory_day_struct = leaves.setdefault('MANDATORY_DAYS', {
-            #         'name': _("Mandatory Days"),
-            #         'sequence': 15,
-            #         'code': 'MANDATORY_DAY',
-            #         'number_of_days': total_mandatory_days,
-            #         'number_of_hours': total_mandatory_hours,
-            #         'contract_id': contract.id,
-            #         'time_type': 'general'
-            #     })
 
             # Fetch public holidays
             public_holidays = self.env['resource.calendar.leaves'].search([
@@ -183,11 +152,11 @@ class HrPayslip(models.Model):
                 global_leaves['GLOBAL LEAVES'] = {
                     'name': _("Global Leaves"),
                     'sequence': 20,
-                    'code': 'Global',
+                    'code': 'GLOBAL',
                     'number_of_days': total_holiday_days,
                     'number_of_hours': total_holiday_hours,
                     'contract_id': contract.id,  # Ensure contract context is available
-                    'time_type': 'general'
+                    'time_type': 'global'
                 }
 
             # Append attendance and leave data to the result
@@ -238,18 +207,8 @@ class HrPayslip(models.Model):
                 # Calculate the total worked days, considering leave days
                 total_worked_days = 0
                 for line in worked_day_lines:
-
-                    # if 'time_type' in line:
-                    #     if line['time_type'] == 'leave':
-                    #         total_worked_days -= line['number_of_days']
-                    #     elif line['time_type'] == 'other' and line['name'] != 'Global Leaves':
-                    #         total_worked_days += line['number_of_days']
-                    # elif line['name'] != 'Mandatory Days':
-                    #     total_worked_days += line['number_of_days']
-                    if line['time_type'] in ['attendance','other','general']:
+                    if line['time_type'] in ['attendance','paid_leave','global']:
                         total_worked_days += line['number_of_days']
-                    # elif line['time_type'] == 'leave':
-                        # total_worked_days -= line['number_of_days']
                     else:
                         continue
 

@@ -10,7 +10,7 @@
                         <field name="age" string="Age"/>
                     </group>
                     <group>
-                        <field name="last_name" string="Last Name"/>
+                        <field name="last_name" string="Last  Name"/>
                         <field name="department" string="Department"/>
                     </group>
                 </group>
