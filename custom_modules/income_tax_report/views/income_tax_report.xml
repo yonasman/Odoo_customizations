@@ -1,0 +1,10 @@
+<odoo>
+    <record id="income_tax_summary_xlsx_report" model="ir.actions.report">
+        <field name="name">Income Tax XLSX Report</field>
+        <field name="model">income.tax.summary.report.wizard</field>
+        <field name="report_type">xlsx</field>
+        <field name="report_name">income_tax_report.report_income_tax_summary_xlsx</field>
+        <field name="report_file">income_tax_report.report_income_tax_summary_xlsx</field>
+        <field name="print_report_name">'Income_Tax_Summary_Report_' + object.id</field>
+    </record>
+</odoo>

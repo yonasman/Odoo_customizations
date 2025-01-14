@@ -1,0 +1,10 @@
+<odoo>
+    <record id="pension_tax_summary_xlsx_report" model="ir.actions.report">
+        <field name="name">Pension Tax XLSX Report</field>
+        <field name="model">pension.tax.summary.report.wizard</field>
+        <field name="report_type">xlsx</field>
+        <field name="report_name">pension_report.report_pension_tax_summary_xlsx</field>
+        <field name="report_file">pension_report.report_pension_tax_summary_xlsx</field>
+        <field name="print_report_name">'Pension_Tax_Summary_Report_' + object.id</field>
+    </record>
+</odoo>

@@ -1,0 +1,10 @@
+<odoo>
+     <record id="cost_sharing_summary_xlsx_report" model="ir.actions.report">
+        <field name="name">Cost Sharing XLSX Report</field>
+        <field name="model">cost.sharing.summary.report.wizard</field>
+        <field name="report_type">xlsx</field>
+        <field name="report_name">cost_sharing_report.report_cost_sharing_summary_xlsx</field>
+        <field name="report_file">cost_sharing_report.report_cost_sharing_summary_xlsx</field>
+        <field name="print_report_name">'Cost_Sharing_Summary_Report_' + object.id</field>
+    </record>
+</odoo>
