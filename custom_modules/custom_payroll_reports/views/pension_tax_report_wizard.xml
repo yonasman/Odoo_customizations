@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="view_pension_tax_summary_report_wizard_form" model="ir.ui.view">
+        <field name="name">pension.tax.summary.report.wizard.form</field>
+        <field name="model">pension.tax.summary.report.wizard</field>
+        <field name="arch" type="xml">
+            <form string="Pension Tax Summary Report">
+                <group>
+                    <group>
+                        <field name="date_from" required="1"/>
+                        <field name="date_to" required="1"/>
+                    </group>
+                </group>
+                <footer>
+                    <button string="Generate Report" name="generate_pension_tax_report" type="object" class="btn-primary"/>
+                    <button string="Cancel" special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_pension_tax_summary_report_wizard" model="ir.actions.act_window">
+        <field name="name">Pension Tax Report</field>
+        <field name="res_model">pension.tax.summary.report.wizard</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+    </record>
+
+<!--    <menuitem id="pension_tax_report_menu"-->
+<!--    name="Reporting"-->
+<!--    parent="om_hr_payroll.menu_hr_payroll_root"-->
+<!--    sequence="22"/>-->
+
+    <menuitem id="menu_pension_tax_summary_report_wizard"
+              name="Pension Tax Report"
+              parent="custom_payroll_reports.income_tax_report_menu"
+              action="action_pension_tax_summary_report_wizard"
+              sequence="4"/>
+</odoo>

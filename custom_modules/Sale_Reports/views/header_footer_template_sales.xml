@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <!--header Template -->
+        <template id="custom_header_layout_sales">
+            <t t-set="company" t-value="user.company_id"/>
+            <div class="header">
+                <style>
+                    p.ex1 {
+                    padding:1px;
+                    }
+                </style>
+                <table class="table">
+
+                    <tr>
+                        <td>
+
+                            <img t-if="company.logo" t-att-src="image_data_uri(company.logo)"
+                                 style="align-items:left; height: 75px; width: 75px;"
+                                 alt="Logo"/>
+
+                        </td>
+
+                        <td>
+
+                            <center>
+                                <p style="color: #000000; font-weight:bold;">
+                                    <span style=" font-size: 35px;" t-esc="company.name"/>
+                                    <br/>
+                                    <span style=" font-size: 30px;">Sales Report</span>
+                                    <br/>
+                                    <span style=" font-size: 17px;">Date:
+                                        <span id="date"/>
+                                    </span>
+                                </p>
+                            </center>
+
+                            <script>
+                                var d = new Date();
+                                var c = d.getDate()+"-"+(d.getMonth()+1)+"-"+d.getFullYear();
+                                document.getElementById("date").innerHTML = c;
+                            </script>
+
+                        </td>
+                    </tr>
+
+                </table>
+
+
+            </div>
+
+
+        </template>
+    </data>
+
+
+</odoo>

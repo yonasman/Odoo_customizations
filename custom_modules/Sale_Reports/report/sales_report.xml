@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+        <record id="sales_summary_report_report_profit_loss" model="ir.actions.report">
+            <field name="name">Sales Report</field>
+            <field name="model">sales.summary.report.profit.loss</field>
+            <field name="report_type">qweb-pdf</field>
+            <field name="report_name">Sale_Reports.report_profit_loss</field>
+            <field name="report_file">Sale_Reports.report_profit_loss</field>
+            <field name="print_report_name">'Sales Report'</field>
+            <field name="binding_model_id" ref="model_sales_summary_report_profit_loss"/>
+            <field name="binding_type">report</field>
+        </record>
+    </data>
+    <template id="report_profit_loss">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="doc">
+                <t t-call="Sale_Reports.custom_header_layout_sales">
+                </t>
+                <style>
+                    table, th, td {
+                        font-size: 14px;
+                        padding: 5px;
+                    }
+                    #first {
+                        font-family: Arial, Helvetica, sans-serif;
+                        border-collapse: collapse;
+                        width: 100%;
+                    }
+                    #first td, #first th {
+                        font-size: 14px;
+                        border: 1px solid #000000;
+                    }
+                    #second {
+                        font-family: Arial, Helvetica, sans-serif;
+                        border-collapse: collapse;
+                        width: 28%;
+                    }
+                    #second td, #second th {
+                        text-align: center;
+                        font-size: 14px;
+                        border: 1px solid #000000;
+                    }
+                </style>
+                <div class="page">
+                    <br/>
+                    <br/>
+                    <br/>
+                    <table id="first" class="table table-sm o_main_table">
+                        <thead style="display: table-row-group; background-color: #FFCD4B;">
+                            <tr style="font-weight:bold; color: rgb(4,36,133); border: 2px solid #7D7C7C;" align="left">
+                                <th style="border: 2px solid #7D7C7C;">Date</th>
+                                <th style="border: 2px solid #7D7C7C;">Reference</th>
+                                <th style="border: 2px solid #7D7C7C;">Customer</th>
+                                <th style="border: 2px solid #7D7C7C;">Product</th>
+                                <th style="border: 2px solid #7D7C7C;">Quantity</th>
+                                <th style="border: 2px solid #7D7C7C;">Unit Price</th>
+                                <th style="border: 2px solid #7D7C7C;">Margin</th>
+                                <th style="border: 2px solid #7D7C7C;">Margin(%)</th>
+                                <th style="border: 2px solid #7D7C7C;">Sub Total</th>
+                            </tr>
+                        </thead>
+                        <t t-set="grand_subtotal" t-value="0"/>
+                        <t t-set="grand_total" t-value="0"/>
+                        <t t-set="grand_tax" t-value="0"/>
+                        <tr>
+                            <t t-set="product_subtotal" t-value="0"/>
+                            <t t-set="product_total" t-value="0"/>
+                            <t t-set="product_tax" t-value="0"/>
+
+                            <t t-foreach="doc.test_one(doc.product_ids, doc.date_from, doc.date_to, doc.customer)" t-as="sale_order">
+                                <t t-foreach="sale_order.order_line" t-as="order_line">
+                                    <t t-if="not doc.product_ids or order_line.product_template_id.id in doc.product_ids.ids">
+                                        <tr>
+                                            <td align="center">
+                                                <t t-esc="sale_order.date_order.date()"/>
+                                            </td>
+                                            <td align="center">
+                                                <t t-esc="sale_order.name"/>
+                                            </td>
+                                            <td align="center">
+                                                <t t-esc="sale_order.partner_id.name"/>
+                                            </td>
+                                            <td align="center">
+                                                <t t-esc="order_line.product_template_id.name"/>
+                                            </td>
+                                            <td align="center">
+                                                <t t-esc="order_line.product_uom_qty"
+                                                   t-options='{"widget": "float", "precision": 2}'/>
+                                            </td>
+                                            <td align="center">
+                                                <t t-esc="order_line.price_unit"
+                                                   t-options='{"widget": "float", "precision": 2}'/>
+                                            </td>
+                                            <td align="center">
+                                                <t t-esc="order_line.margin"/>
+                                            </td>
+                                            <td align="center">
+                                                <t t-esc="(order_line.margin_percent * 100)" t-options='{"widget": "float", "precision": 0}'/>
+                                            </td>
+                                            <td align="center">
+                                                <t t-esc="order_line.price_subtotal"
+                                                   t-options='{"widget": "float", "precision": 2}'/>
+                                            </td>
+                                        </tr>
+                                    </t>
+                                </t>
+                            </t>
+
+                        </tr>
+                    </table>
+                    <br/>
+                    <table align="right" id="second" class="table table-sm o_main_table">
+                        <tr>
+                            <td>Total Sales</td>
+                            <td>
+                                <t t-set="total_cost" t-value="0"/>
+                                <t t-foreach="doc.test_one(doc.product_ids, doc.date_from, doc.date_to, doc.customer)" t-as="sale_order">
+                                    <t t-foreach="sale_order.order_line" t-as="order_line">
+                                        <t t-if="not doc.product_ids or order_line.product_template_id.id in doc.product_ids.ids">
+                                            <t t-set="total_cost" t-value="total_cost + order_line.price_subtotal"/>
+                                        </t>
+                                    </t>
+                                </t>
+                                <t t-esc="total_cost" t-options='{"widget": "float", "precision": 2}'/>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </t>
+        </t>
+    </template>
+</odoo>
