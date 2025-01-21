@@ -1,0 +1,4 @@
+ id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_payment_term_inherit,access.account.payment.term.inherit,model_account_payment_term_inherit,base.group_user,1,1,1,1
+access_account_move_inherit,access.account.move.inherit,model_account_move_inherit,base.group_user,1,1,1,1
+

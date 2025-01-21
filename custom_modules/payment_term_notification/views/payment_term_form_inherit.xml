@@ -1,0 +1,32 @@
+<odoo>
+    <data>
+        <record id="view_account_payment_term_form" model="ir.ui.view">
+            <field name="model">account.payment.term</field>
+            <field name="inherit_id" ref="account.view_payment_term_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//form/sheet/group[1]" position="replace">
+                    <group>
+                        <group>
+                            <label for="early_discount"/>
+                            <div class="o_field_highlight">
+                            <field name="early_discount" on_change="1" field_id="early_discount_0"/>
+                            <field name="discount_percentage" class="text-end o_field_highlight o_input oe_inline" invisible="not early_discount" on_change="1" field_id="discount_percentage_0"/>
+                            <span invisible="not early_discount"> % if paid within </span>
+                            <field name="discount_days" class="text-end o_field_highlight o_input oe_inline" invisible="not early_discount" on_change="1" field_id="discount_days_0"/>
+                            <span invisible="not early_discount"> days</span>
+                            <div invisible="not early_discount">
+                                <span> Reduced tax:
+                                    <field name="early_pay_discount_computation" class="w-auto" field_id="early_pay_discount_computation_0"/>
+                                </span>
+                            </div>
+                            </div>
+                        </group>
+                        <group>
+                            <field name="notify_admin" field_id="notify_admin_0"/>
+                        </group>
+                    </group>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>
