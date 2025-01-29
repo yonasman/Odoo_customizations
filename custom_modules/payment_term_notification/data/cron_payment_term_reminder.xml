@@ -5,7 +5,7 @@
             <field name="model_id" ref="account.model_account_move"/>
             <field name="state">code</field>
             <field name="user_id" ref="base.group_user"/>
-            <field name="code">model.check_payment_terms_due</field>
+            <field name="code">model.check_payment_terms_due()</field>
             <field name="interval_type">days</field> <!-- Run daily -->
             <field name="interval_number">1</field> <!-- Every 1 day -->
             <field name="numbercall">-1</field> <!-- Unlimited execution -->
